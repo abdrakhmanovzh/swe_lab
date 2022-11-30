@@ -1,0 +1,212 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Karma:wght@400;500&family=Zilla+Slab:wght@400;500&display=swap");
+
+#root {
+    height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
+    background-color: white;
+}
+
+.Navbar {
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    border-radius: 8px;
+    font-size: 36px;
+    font-family: "Helvetica";
+    text-align: center;
+    background-color: #7cc6fe;
+}
+
+.Message {
+    background-color: #7cc6fe;
+    font-family: "Helvetica", serif;
+    margin: 12rem auto 8rem auto;
+    height: max-content;
+    width: max-content;
+    border-radius: 8px;
+}
+
+.NavButton {
+    background-color: #7cc6fe;
+}
+
+.Register {
+    background-color: #7cc6fe;
+    width: 18rem;
+    margin: 10rem auto;
+}
+
+.Register h2 {
+    font-weight: 600;
+    color: white;
+    font-family: "Raleway";
+}
+
+.Register button {
+    background-color: #7cc6fe;
+    color: white;
+    height: 2rem;
+}
+
+.ErrorMessage {
+    height: fit-content;
+    color: red;
+}
+
+.AdminText {
+    font-family: "Helvetica";
+    margin-bottom: 15px;
+}
+
+.TableWrapper {
+    display: grid;
+    border: 2px solid black;
+    border-radius: 5px;
+    grid-template-rows: 1rem, auto;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.TableHead {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid black;
+    font-weight: 700;
+}
+
+.TableBody {
+    display: grid;
+    height: 100%;
+    width: 100%;
+}
+
+.TableBody div {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.DoctorTableWrapper {
+    display: grid;
+    border: 2px solid black;
+    border-radius: 5px;
+    grid-template-rows: 1rem, auto;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.DoctorTableHead {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 1fr 85px 110px 95px 95px 50px 85px 1fr 80px 60px 65px 60px 1fr 80px 90px;
+    border-bottom: 1px solid black;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.DoctorTableBody {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+.DoctorTableBody div {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 1fr 85px 110px 95px 95px 50px 85px 1fr 80px 60px 65px 60px 1fr 80px 90px;
+}
+
+.CreateForm {
+    display: grid;
+}
+
+.PatientTableWrapper {
+    display: grid;
+    border: 2px solid black;
+    border-radius: 5px;
+    grid-template-rows: 1rem, auto;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.PatientTableHead {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: repeat(10, 1fr);
+    border-bottom: 1px solid black;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.PatientTableBody {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+.PatientTableBody div {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.dataResult {
+    position: absolute;
+    left: 10rem;
+    top: 11rem;
+    width: 1045px;
+    min-height: 50px;
+    height: max-content;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.dataResult::-webkit-scrollbar {
+    display: none;
+}
+
+.dataResult .dataItem {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.dataItem p {
+    margin-left: 10px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.adminLink {
+    color: #7cc6fe;
+}
+
+.adminLink:hover {
+    color: white;
+}
