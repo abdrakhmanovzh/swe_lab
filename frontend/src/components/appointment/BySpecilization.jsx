@@ -22,7 +22,7 @@ const BySpecilization = () => {
 
     return (
         <>
-            <h1 className='is-size-1'>Specialization</h1>
+            <h1 className='is-size-1'>Specialization {spec_id}</h1>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr" }}>
                 {docs.map((doc) => (
                     <div style={{ minWidth: "fit-content", maxWidth: "20rem", margin: "1rem", border: "1px solid black" }}>
