@@ -1,82 +1,53 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 function AppointmentDoctor() {
-    const { id } = useParams();
+    const { id } = useParams()
     const [doc, setdoc] = useState([]);
+    const history = useNavigate();
 
-    const initialState = {
-        full_name: '',
-        contact_number: '',
-        emer_contact_number: '',
-    }
+    const [fullName, setFullName] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
+    const [emerContactNumber, setEmerContactNumber] = useState('');
+    const [timeSlot, setTimeSlot] = useState('');
+    const [slots, setslots] = useState([]);
 
-    const [state, setState] = useState(initialState);
+    const [sched, setSched] = useState([]);
 
-    const {
-        full_name,
-        contact_number,
-        emer_contact_number,
-    } = state;
-
-    const initialSlot = {
-        first: '',
-        second: '',
-        third: '',
-        fourth: '',
-        fivth: '',
-        sixth: '',
-        seventh: '',
-        eighth: '',
-    }
-
-    const [timeSlot, setTimeSlot] = useState(initialSlot);
-
-    const {
-        first,
-        second,
-        third,
-        fourth,
-        fivth,
-        sixth,
-        seventh,
-        eighth,
-    } = timeSlot;
-
-    const options = [
+    let options = [
         {
-            value: first,
+            value: "first",
             label: "09:00am - 10:00am",
         },
         {
-            value: second,
+            value: "second",
             label: "10:00am - 11:00am",
         },
         {
-            value: third,
+            value: "third",
             label: "11:00am - 12:00am",
         },
         {
-            value: fourth,
+            value: "fourth",
             label: "12:00pm - 01:00pm",
         },
         {
-            value: fivth,
+            value: "fivth",
             label: "01:00pm - 02:00pm",
         },
         {
-            value: sixth,
+            value: "sixth",
             label: "02:00pm - 03:00pm",
         },
         {
-            value: seventh,
-            label: "04:00pm - 05:00pm",
+            value: "seventh",
+            label: "03:00pm - 04:00pm",
         },
         {
-            value: eighth,
-            label: "05:00pm - 06:00pm",
+            value: "eighth",
+            label: "04:00pm - 05:00pm",
         },
     ];
 
@@ -84,36 +55,61 @@ function AppointmentDoctor() {
         getDoc();
     }, []);
 
+    useEffect(() => {
+        getSched();
+    }, [doc]);
+
     const getDoc = async () => {
-        const response = await axios.get(`http://localhost:5000/appointment/doctors/${id}`);
-        setdoc(response.data);
+        await axios.get(`http://localhost:5000/appointment/doctors/${id}`).then(result => {
+            setdoc(result.data);
+        })
     }
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setState({ ...state, [name]: value });
-    };
+    const getSched = async () => {
+        await axios.get(`http://localhost:5000/appointment/doctors/schedule/${id}`)
+            .then(result => {
+                setSched(result.data)
+                console.log(sched);
+                if (sched.first == true) {
+                    options.splice(0, 1);
+                }
+                if (sched.second == true) {
+                    options.splice(1, 1);
+                }
+                if (sched.third == true) {
+                    options.splice(2, 1);
+                }
+                if (sched.fourth == true) {
+                    options.splice(3, 1);
+                }
+                if (sched.fivth == true) {
+                    options.splice(4, 1);
+                }
+                if (sched.sixth == true) {
+                    options.splice(5, 1);
+                }
+                if (sched.seventh == true) {
+                    options.splice(6, 1);
+                }
+                if (sched.eighth == true) {
+                    options.splice(7, 1);
+                }
+                setslots(options);
 
-    const handleSelectChange = (e) => {
-        const time = e.target.value;
-        setTimeSlot({ ...timeSlot, [time]: 1 });
+                console.log(options);
+            });
     }
 
     const handleSubmit = async (e) => {
-        alert('You chose ' + state.full_name + ' ' + state.contact_number + ' ' + state.emer_contact_number + ' ' + timeSlot.first);
         e.preventDefault();
-        await axios.post("http://localhost:5000/appointment/doctor/:id", {
-            doc_id: id,
-            first: timeSlot.first,
-            second: timeSlot.second,
-            third: timeSlot.third,
-            fourth: timeSlot.fourth,
-            fivth: timeSlot.fivth,
-            sixth: timeSlot.sixth,
-            seventh: timeSlot.seventh,
-            eighth: timeSlot.eighth,
-        });
-        history("/");
+        await axios.post(`http://localhost:5000/appointment/doctors/${id}`, {
+            id,
+            timeSlot,
+            fullName,
+            contactNumber,
+            emerContactNumber,
+        }).then(history('/appointment'))
+
     };
 
     return (
@@ -141,21 +137,21 @@ function AppointmentDoctor() {
                 <div className='field'>
                     <label className='label'>Full Name</label>
                     <div className='control'>
-                        <input className='input' name="full_name" value={full_name} type='text' placeholder="Name" onChange={handleInputChange} />
+                        <input className='input' name="full_name" value={fullName} type='text' placeholder="Name" onChange={(e) => setFullName(e.target.value)} />
                     </div>
                 </div>
 
                 <div className='field'>
                     <label className='label'>Contact Number</label>
                     <div className='control'>
-                        <input className='input' type='text' name="contact_number" value={contact_number} placeholder="Number" onChange={handleInputChange} />
+                        <input className='input' type='text' name="contact_number" value={contactNumber} placeholder="Number" onChange={(e) => setContactNumber(e.target.value)} />
                     </div>
                 </div>
 
                 <div className='field'>
                     <label className='label'>Emergency Number</label>
                     <div className='control'>
-                        <input className='input' type='text' name="emer_contact_number" value={emer_contact_number} placeholder="Emergency number" onChange={handleInputChange} />
+                        <input className='input' type='text' name="emer_contact_number" value={emerContactNumber} placeholder="Emergency number" onChange={(e) => setEmerContactNumber(e.target.value)} />
                     </div>
                 </div>
 
@@ -163,8 +159,8 @@ function AppointmentDoctor() {
                     <label className="label">Time Slot</label>
                     <div className="control">
                         <div className="select">
-                            <select onChange={handleSelectChange}>
-                                {options.map((option) => (
+                            <select value={timeSlot} onChange={(e) => setTimeSlot(e.target.value)}>
+                                {slots.map((option) => (
                                     <option value={option.value}>{option.label}</option>
                                 ))}
                             </select>
@@ -177,7 +173,7 @@ function AppointmentDoctor() {
                         <button className="button is-link" onClick={handleSubmit}>Submit</button>
                     </div>
                     <div className="control">
-                        <button className="button is-link is-light">Cancel</button>
+                        <a href="/appointment"><button className="button is-link is-light">Cancel</button ></a>
                     </div>
                 </div>
             </div>

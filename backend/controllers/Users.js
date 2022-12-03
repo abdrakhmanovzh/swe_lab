@@ -1,4 +1,9 @@
-import { Doctors, DoctorSchedule, Users } from "../models/UserModel.js";
+import {
+    Doctors,
+    DoctorSchedule,
+    Patients,
+    Users,
+} from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
 
 export const Login = async (req, res) => {
@@ -106,17 +111,101 @@ export const getDoctorForPatient = async (req, res) => {
 
 export const setDoctorForPatient = async (req, res) => {
     try {
-        const sadge = await DoctorSchedule.create({
-            doc_id: req.body.doc_id,
-            first: req.body.first,
-            second: req.body.second,
-            third: req.body.third,
-            fourth: req.body.fourth,
-            fivth: req.body.fivth,
-            sixth: req.body.sixth,
-            seventh: req.body.seventh,
-            eighth: req.body.eighth,
+        await Patients.upsert({
+            full_name: req.body.fullName,
+            contact_number: req.body.contactNumber,
+            emer_contact_number: req.body.emerContactNumber,
         });
+
+        const timeSlot = req.body.timeSlot;
+        switch (timeSlot) {
+            case "first":
+                await DoctorSchedule.upsert({
+                    doc_id: req.body.id,
+                    first: 1,
+                });
+                break;
+
+            case "second":
+                await DoctorSchedule.upsert({
+                    doc_id: req.body.id,
+                    second: 1,
+                });
+                break;
+
+            case "third":
+                await DoctorSchedule.upsert({
+                    doc_id: req.body.id,
+                    third: 1,
+                });
+                break;
+            case "fourth":
+                await DoctorSchedule.upsert({
+                    doc_id: req.body.id,
+                    fourth: 1,
+                });
+                break;
+            case "fivth":
+                await DoctorSchedule.upsert({
+                    doc_id: req.body.id,
+                    fivth: 1,
+                });
+                break;
+            case "sixth":
+                await DoctorSchedule.upsert({
+                    doc_id: req.body.id,
+                    sixth: 1,
+                });
+                break;
+            case "seventh":
+                await DoctorSchedule.upsert({
+                    doc_id: req.body.id,
+                    seventh: 1,
+                });
+                break;
+            case "eighth":
+                await DoctorSchedule.upsert({
+                    doc_id: req.body.id,
+                    eighth: 1,
+                });
+                break;
+            default:
+                break;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getDoctorSchedule = async (req, res) => {
+    try {
+        const schedules = await DoctorSchedule.findOne({
+            where: {
+                doc_id: req.params.id,
+            },
+        });
+        res.json(schedules);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getDoctorsBySpec = async (req, res) => {
+    try {
+        const docs = await Doctors.findAll({
+            attributes: [
+                "id",
+                "full_name",
+                "price",
+                "img",
+                "spec_id",
+                "rating",
+            ],
+            where: {
+                spec_id: req.params.spec_id,
+            },
+        });
+        res.json(docs);
     } catch (error) {
         console.log(error);
     }

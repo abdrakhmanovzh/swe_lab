@@ -125,35 +125,49 @@ export const Patients = db.define(
     }
 );
 
-export const DoctorSchedule = db.define("doctor_schedule", {
-    doc_id: {
-        type: DataTypes.INTEGER,
+export const DoctorSchedule = db.define(
+    "doctorSchedule",
+    {
+        doc_id: {
+            type: DataTypes.INTEGER,
+        },
+        first: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        second: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        third: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        fourth: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        fivth: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        sixth: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        seventh: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        eighth: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
     },
-    first: {
-        type: DataTypes.BOOLEAN,
-    },
-    second: {
-        type: DataTypes.BOOLEAN,
-    },
-    third: {
-        type: DataTypes.BOOLEAN,
-    },
-    fivth: {
-        type: DataTypes.BOOLEAN,
-    },
-    sixth: {
-        type: DataTypes.BOOLEAN,
-    },
-    seventh: {
-        type: DataTypes.BOOLEAN,
-    },
-    eighth: {
-        type: DataTypes.BOOLEAN,
-    },
-    ninth: {
-        type: DataTypes.BOOLEAN,
-    },
-});
+    {
+        freezeTableName: true,
+    }
+);
 
 (async () => {
     await db.sync();

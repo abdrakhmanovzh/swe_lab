@@ -5,6 +5,8 @@ import {
     getDoctorsForPatients,
     getDoctorForPatient,
     setDoctorForPatient,
+    getDoctorSchedule,
+    getDoctorsBySpec,
 } from "../controllers/Users.js";
 import {
     getUsers,
@@ -49,4 +51,6 @@ router.delete("/patients/:id", verifyAdmin, deletePatient);
 router.get("/appointment/doctors", getDoctorsForPatients);
 router.get("/appointment/doctors/:id", getDoctorForPatient);
 router.post("/appointment/doctors/:id", setDoctorForPatient);
+router.get("/appointment/doctors/schedule/:id", getDoctorSchedule);
+router.get("/appointment/doctors/spec/:spec_id", getDoctorsBySpec);
 export default router;
