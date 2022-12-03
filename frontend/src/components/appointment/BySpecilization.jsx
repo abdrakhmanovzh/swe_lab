@@ -8,7 +8,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 const BySpecilization = () => {
     const { spec_id } = useParams()
     const [docs, setdocs] = useState([]);
-    const history = useNavigate();
 
     useEffect(() => {
         getDocs();
@@ -47,6 +46,8 @@ const BySpecilization = () => {
                     </div>
                 ))}
             </div>
+
+            <a href='/appointment'><button className='is-link button'>Exit</button></a>
         </>
 
     )

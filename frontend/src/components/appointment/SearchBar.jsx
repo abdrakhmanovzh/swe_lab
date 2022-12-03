@@ -21,7 +21,7 @@ function SearchBar({ data }) {
 
     return (
         <div className="search-box mt-6 px-6">
-            <h1 className="has-text-black is-size-3 mb-5">Search For Doctor</h1>
+            <h1 className="has-text-black is-size-2 mb-5">Search For Doctor</h1>
             <div className="field is-grouped">
                 <p className="control is-expanded ml-6 pl-6">
                     <input className="input" type="text" placeholder="Find a doctor by name or specialization" onChange={handleFilter} />
