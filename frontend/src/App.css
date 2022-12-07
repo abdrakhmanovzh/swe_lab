@@ -3,7 +3,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Karma:wght@400;500&family=Zilla+Slab:wght@400;500&display=swap");
 
 #root {
-    height: 100vh;
+    min-height: 100vh;
+    max-height: max-content;
     width: 100%;
     margin: 0 auto;
     padding: 1rem;
@@ -173,7 +174,7 @@
 .dataResult {
     position: absolute;
     left: 10rem;
-    top: 11rem;
+    top: 12rem;
     width: 1045px;
     min-height: 50px;
     height: max-content;
@@ -209,4 +210,19 @@ input:focus {
 
 .adminLink:hover {
     color: white;
+}
+
+.LoginButtons {
+    display: flex;
+    font-family: "Helvetica", serif;
+    margin: 8rem auto 8rem auto;
+    height: max-content;
+    width: max-content;
+}
+
+.LoginButtons .content {
+    border-radius: 8px;
+    background-color: #7cc6fe;
+    margin: 1rem;
+    padding: 1rem;
 }

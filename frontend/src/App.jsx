@@ -11,6 +11,11 @@ import AdminPatientCreate from "./components/admin/patient/AdminPatientCreate";
 import Appointment from "./components/appointment/Appointment";
 import AppointmentDoctor from "./components/appointment/AppointmentDoctor";
 import BySpecilization from "./components/appointment/BySpecilization";
+import PatientLogin from "./components/user/PatientLogin"
+import DoctorLogin from "./components/doctor/DoctorLogin";
+import DoctorHome from "./components/doctor/DoctorHome";
+import PatientHome from "./components/user/PatientHome";
+import PatientAppointments from "./components/user/PatientAppointments";
 
 function App() {
   return (
@@ -30,6 +35,12 @@ function App() {
         <Route exact path="/admin/patients/create" element={<AdminPatientCreate />}></Route>
         <Route exact path="/admin/patients/update/:id" element={<AdminPatientCreate />}></Route>
 
+        <Route exact path="/patients/login" element={<PatientLogin />}></Route>
+        <Route exact path="/patients/:iin" element={<PatientHome />}></Route>
+        <Route exact path="/patients/appointments/:iin" element={<PatientAppointments />}></Route>
+
+        <Route exact path="/doctors/login" element={<DoctorLogin />}></Route>
+        <Route exact path="/doctors/:iin" element={<DoctorHome />}></Route>
 
         <Route exact path="/appointment" element={<Appointment />}></Route>
         <Route exact path="/appointment/doctors/:id" element={<AppointmentDoctor />}></Route>

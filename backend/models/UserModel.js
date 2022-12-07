@@ -8,6 +8,11 @@ export const Users = db.define(
     {
         full_name: {
             type: DataTypes.STRING,
+            allowNull: false,
+        },
+        user_id: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         email: {
             type: DataTypes.STRING,
@@ -37,48 +42,61 @@ export const Doctors = db.define(
     {
         full_name: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         birth_date: {
             type: DataTypes.DATEONLY,
+            allowNull: false,
         },
         iin: {
             type: DataTypes.BIGINT,
             validate: {
                 len: [12],
             },
+            allowNull: false,
         },
         contact_number: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         dep_id: {
             type: DataTypes.INTEGER,
+            allowNull: false,
         },
         spec_id: {
             type: DataTypes.INTEGER,
+            allowNull: false,
         },
         exp: {
             type: DataTypes.INTEGER,
+            allowNull: false,
         },
         img: {
             type: DataTypes.STRING,
         },
         category: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         price: {
             type: DataTypes.INTEGER,
+            allowNull: false,
         },
         degree: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         rating: {
             type: DataTypes.INTEGER,
+            allowNull: false,
         },
         address: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         password: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
     },
     {
@@ -91,33 +109,41 @@ export const Patients = db.define(
     {
         full_name: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         birth_date: {
             type: DataTypes.DATEONLY,
+            allowNull: false,
         },
         iin: {
             type: DataTypes.BIGINT,
             validate: {
                 len: [12],
             },
+            allowNull: false,
         },
         contact_number: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         emer_contact_number: {
             type: DataTypes.STRING,
         },
         blood_group: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         marital_status: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         address: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         password: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
     },
     {
@@ -130,6 +156,11 @@ export const DoctorSchedule = db.define(
     {
         doc_id: {
             type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        patient_iin: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
         },
         first: {
             type: DataTypes.BOOLEAN,

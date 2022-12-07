@@ -20,7 +20,7 @@ function SearchBar({ data }) {
     }
 
     return (
-        <div className="search-box mt-6 px-6">
+        <div className="search-box mt-6 px-6" style={{}}>
             <h1 className="has-text-black is-size-2 mb-5">Search For Doctor</h1>
             <div className="field is-grouped">
                 <p className="control is-expanded ml-6 pl-6">

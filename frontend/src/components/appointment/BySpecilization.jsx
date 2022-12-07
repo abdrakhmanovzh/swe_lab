@@ -4,17 +4,21 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Pagination from './Pagination'
+import jwt_decode from 'jwt-decode'
 
 
 const BySpecilization = () => {
     const { spec_id } = useParams()
     const [docs, setdocs] = useState([]);
+    const [token, setToken] = useState("");
+    const [expire, setExpire] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
     const [recordsPerPage] = useState(4);
 
     useEffect(() => {
         getDocs();
+        refreshToken();
     }, []);
 
     const indexOfLastRecord = currentPage * recordsPerPage;
@@ -23,8 +27,45 @@ const BySpecilization = () => {
     const currentRecords = docs.slice(indexOfFirstRecord, indexOfLastRecord);
     const nPages = Math.ceil(docs.length / recordsPerPage)
 
+
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get("http://localhost:5000/token");
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                history("/noauth");
+            }
+        }
+    };
+
+    const axiosJWT = axios.create();
+
+    axiosJWT.interceptors.request.use(
+        async (config) => {
+            const currentDate = new Date();
+            if (expire * 1000 < currentDate.getTime()) {
+                const response = await axios.get("http://localhost:5000/token");
+                config.headers.Authorization = `Bearer ${response.data.accessToken}`;
+                setToken(response.data.accessToken);
+                const decoded = jwt_decode(response.data.accessToken);
+                setExpire(decoded.exp);
+            }
+            return config;
+        },
+        (error) => {
+            return Promise.reject(error);
+        }
+    );
+
     const getDocs = async () => {
-        const response = await axios.get(`http://localhost:5000/appointment/doctors/spec/${spec_id}`)
+        const response = await axiosJWT.get(`http://localhost:5000/appointment/doctors/spec/${spec_id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
         setdocs(response.data);
     }
 
@@ -51,12 +92,12 @@ const BySpecilization = () => {
                                 <div style={{ fontWeight: "bold", textAlign: "left" }}> Rating <p style={{ fontWeight: "400", float: "right" }}>{doc.rating}</p></div>
                             </div>
                         </div>
-                        <a style={{ color: "white" }} href={`/appointment/doctors/${doc.id}`}><button className='mb-2 button is-link'>Select</button></a>
+                        <a style={{ color: "white" }} href={`/appointment/doctors/${doc.id}`}><button className='mb-2 button is-info'>Select</button></a>
                     </div>
                 ))}
             </div>
             <Pagination nPages={nPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-            <a href='/appointment'><button className='is-link button'>Exit</button></a>
+            <a href='/appointment'><button className='is-info button'>Exit</button></a>
         </>
 
     )

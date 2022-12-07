@@ -33,12 +33,6 @@ export const getDoctor = async (req, res) => {
 
 export const addDoctor = async (req, res) => {
     try {
-        await Users.create({
-            full_name: req.body.full_name,
-            password: req.body.password,
-            role: "doctor",
-        });
-
         const newDoctor = await Doctors.create({
             full_name: req.body.full_name,
             birth_date: req.body.birth_date,
@@ -63,19 +57,6 @@ export const addDoctor = async (req, res) => {
 
 export const updateDoctor = async (req, res) => {
     try {
-        const resp = await Doctors.findOne({ where: { id: req.params.id } });
-
-        await Users.update(
-            {
-                full_name: req.body.full_name,
-                password: req.body.password,
-            },
-            {
-                where: {
-                    createdAt: resp.createdAt,
-                },
-            }
-        );
         await Doctors.update(
             {
                 full_name: req.body.full_name,
@@ -106,14 +87,6 @@ export const updateDoctor = async (req, res) => {
 
 export const deleteDoctor = async (req, res) => {
     try {
-        const resp = await Doctors.findOne({ where: { id: req.params.id } });
-
-        await Users.destroy({
-            where: {
-                createdAt: resp.createdAt,
-            },
-        });
-
         await Doctors.destroy({
             where: {
                 id: req.params.id,
@@ -148,12 +121,6 @@ export const getPatient = async (req, res) => {
 
 export const addPatient = async (req, res) => {
     try {
-        const newUser = await Users.create({
-            full_name: req.body.full_name,
-            password: req.body.password,
-            role: "patient",
-        });
-
         const newPatient = await Patients.create({
             full_name: req.body.full_name,
             birth_date: req.body.birth_date,
@@ -173,19 +140,6 @@ export const addPatient = async (req, res) => {
 
 export const updatePatient = async (req, res) => {
     try {
-        const resp = await Patients.findOne({ where: { id: req.params.id } });
-
-        await Users.update(
-            {
-                full_name: req.body.full_name,
-                password: req.body.password,
-            },
-            {
-                where: {
-                    createdAt: resp.createdAt,
-                },
-            }
-        );
         await Patients.update(
             {
                 full_name: req.body.full_name,
@@ -211,14 +165,6 @@ export const updatePatient = async (req, res) => {
 
 export const deletePatient = async (req, res) => {
     try {
-        const resp = await Patients.findOne({ where: { id: req.params.id } });
-
-        await Users.destroy({
-            where: {
-                createdAt: resp.createdAt,
-            },
-        });
-
         await Patients.destroy({
             where: {
                 id: req.params.id,

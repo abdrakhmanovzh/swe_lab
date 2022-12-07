@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
+import jwt_decode from "jwt-decode"
 import { useEffect, useState } from 'react';
 
 function AppointmentDoctor() {
@@ -9,6 +10,11 @@ function AppointmentDoctor() {
     const history = useNavigate();
 
     const [fullName, setFullName] = useState('');
+    const [iin, setIin] = useState('');
+    const [birthDate, setbirthDate] = useState('');
+    const [blood, setblood] = useState('');
+    const [marital, setmarital] = useState('');
+    const [address, setaddress] = useState('');
     const [contactNumber, setContactNumber] = useState('');
     const [emerContactNumber, setEmerContactNumber] = useState('');
     const [timeSlot, setTimeSlot] = useState('');
@@ -104,6 +110,7 @@ function AppointmentDoctor() {
         e.preventDefault();
         await axios.post(`http://localhost:5000/appointment/doctors/${id}`, {
             id,
+            iin,
             timeSlot,
             fullName,
             contactNumber,
@@ -142,6 +149,41 @@ function AppointmentDoctor() {
                 </div>
 
                 <div className='field'>
+                    <label className='label'>IIN</label>
+                    <div className='control'>
+                        <input className='input' name="iin" value={iin} type='text' placeholder="Iin" onChange={(e) => setIin(e.target.value)} />
+                    </div>
+                </div>
+
+                <div className='field'>
+                    <label className='label'>Birth Date</label>
+                    <div className='control'>
+                        <input className='input' name="birth_date" value={birthDate} type='text' placeholder="YYYY-MM-DD" onChange={(e) => setbirthDate(e.target.value)} />
+                    </div>
+                </div>
+
+                <div className='field'>
+                    <label className='label'>Blood Group</label>
+                    <div className='control'>
+                        <input className='input' name="blood" value={blood} type='text' placeholder="Blood Group" onChange={(e) => setblood(e.target.value)} />
+                    </div>
+                </div>
+
+                <div className='field'>
+                    <label className='label'>Marital Status</label>
+                    <div className='control'>
+                        <input className='input' name="marital_status" value={marital} type='text' placeholder="true or false" onChange={(e) => setmarital(e.target.value)} />
+                    </div>
+                </div>
+
+                <div className='field'>
+                    <label className='label'>Address</label>
+                    <div className='control'>
+                        <input className='input' name="address" value={address} type='text' placeholder="Address" onChange={(e) => setaddress(e.target.value)} />
+                    </div>
+                </div>
+
+                <div className='field'>
                     <label className='label'>Contact Number</label>
                     <div className='control'>
                         <input className='input' type='text' name="contact_number" value={contactNumber} placeholder="Number" onChange={(e) => setContactNumber(e.target.value)} />
@@ -170,10 +212,10 @@ function AppointmentDoctor() {
 
                 <div className="field is-grouped" style={{ marginLeft: "1rem" }}>
                     <div className="control">
-                        <button className="button is-link" onClick={handleSubmit}>Submit</button>
+                        <button className="button is-info" onClick={handleSubmit}>Submit</button>
                     </div>
                     <div className="control">
-                        <a href="/appointment"><button className="button is-link is-light">Cancel</button ></a>
+                        <a href="/appointment"><button className="button is-info">Cancel</button ></a>
                     </div>
                 </div>
             </div>

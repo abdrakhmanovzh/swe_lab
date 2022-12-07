@@ -26,6 +26,7 @@ const AdminHome = () => {
       if (decoded.role !== "admin") {
         history("/admin_role");
       }
+
       setExpire(decoded.exp);
     } catch (error) {
       if (error.response) {
@@ -59,7 +60,7 @@ const AdminHome = () => {
       await axios.delete("http://localhost:5000/logout");
       history("/");
     } catch (error) {
-      console.log(err);
+      console.log(error);
     }
   }
 
