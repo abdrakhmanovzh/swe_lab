@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const PatientAppointments = () => {
     const { iin } = useParams();
@@ -11,6 +11,7 @@ const PatientAppointments = () => {
     const [token, setToken] = useState('');
     const [expire, setExpire] = useState('');
     const [times, setTimes] = useState('');
+    const history = useNavigate();
 
     useEffect(() => {
         refreshToken();

@@ -111,6 +111,10 @@ function AppointmentDoctor() {
         await axios.post(`http://localhost:5000/appointment/doctors/${id}`, {
             id,
             iin,
+            birthDate,
+            blood,
+            marital,
+            address,
             timeSlot,
             fullName,
             contactNumber,
@@ -137,6 +141,8 @@ function AppointmentDoctor() {
                         <div style={{ fontWeight: "bold", textAlign: "left" }}> Price per appointment <p style={{ fontWeight: "400", float: "right" }}>{doc.price}</p></div>
                         <div style={{ fontWeight: "bold", textAlign: "left" }}> Specialization <p style={{ fontWeight: "400", float: "right" }}> {doc.spec_id}</p></div>
                         <div style={{ fontWeight: "bold", textAlign: "left" }}> Rating <p style={{ fontWeight: "400", float: "right" }}>{doc.rating}</p></div>
+                        <div style={{ fontWeight: "bold", textAlign: "left" }}> Degree <p style={{ fontWeight: "400", float: "right" }}>{doc.degree}</p></div>
+                        <div style={{ fontWeight: "bold", textAlign: "left" }}> Category <p style={{ fontWeight: "400", float: "right" }}>{doc.category}</p></div>
                     </div>
                 </div>
             </div>

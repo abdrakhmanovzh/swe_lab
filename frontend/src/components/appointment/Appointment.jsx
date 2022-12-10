@@ -25,9 +25,9 @@ const Appointment = () => {
             <h1 className="has-text-black is-size-3" style={{ marginTop: "14rem" }}>Or Choose a Specialization</h1>
             <nav className="breadcrumb mt-3" style={{ marginLeft: "10rem" }}>
                 <ul className="is-size-4 mx-auto">
-                    <li><a href="/appointment/spec/1">Spec 1</a></li>
-                    <li><a href="/appointment/spec/2">Spec 2</a></li>
-                    <li><a href="/appointment/spec/3">Spec 3</a></li>
+                    <li><a href="/appointment/spec/1">Specialization 1</a></li>
+                    <li><a href="/appointment/spec/2">Specialization 2</a></li>
+                    <li><a href="/appointment/spec/3">Specialization 3</a></li>
                 </ul>
             </nav>
 

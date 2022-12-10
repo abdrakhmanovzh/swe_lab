@@ -16,12 +16,16 @@ import DoctorLogin from "./components/doctor/DoctorLogin";
 import DoctorHome from "./components/doctor/DoctorHome";
 import PatientHome from "./components/user/PatientHome";
 import PatientAppointments from "./components/user/PatientAppointments";
+import Error from "./components/error/Error";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
+
+        <Route exact path="/noauth" element={<Error />}></Route>
+
         <Route exact path="/admin_access" element={<ForAdmin />}></Route>
         <Route exact path="/login" element={<Login />}></Route>
 

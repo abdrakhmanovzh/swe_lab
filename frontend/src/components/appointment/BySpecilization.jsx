@@ -10,15 +10,12 @@ import jwt_decode from 'jwt-decode'
 const BySpecilization = () => {
     const { spec_id } = useParams()
     const [docs, setdocs] = useState([]);
-    const [token, setToken] = useState("");
-    const [expire, setExpire] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
     const [recordsPerPage] = useState(4);
 
     useEffect(() => {
         getDocs();
-        refreshToken();
     }, []);
 
     const indexOfLastRecord = currentPage * recordsPerPage;
@@ -27,45 +24,8 @@ const BySpecilization = () => {
     const currentRecords = docs.slice(indexOfFirstRecord, indexOfLastRecord);
     const nPages = Math.ceil(docs.length / recordsPerPage)
 
-
-    const refreshToken = async () => {
-        try {
-            const response = await axios.get("http://localhost:5000/token");
-            setToken(response.data.accessToken);
-            const decoded = jwt_decode(response.data.accessToken);
-            setExpire(decoded.exp);
-        } catch (error) {
-            if (error.response) {
-                history("/noauth");
-            }
-        }
-    };
-
-    const axiosJWT = axios.create();
-
-    axiosJWT.interceptors.request.use(
-        async (config) => {
-            const currentDate = new Date();
-            if (expire * 1000 < currentDate.getTime()) {
-                const response = await axios.get("http://localhost:5000/token");
-                config.headers.Authorization = `Bearer ${response.data.accessToken}`;
-                setToken(response.data.accessToken);
-                const decoded = jwt_decode(response.data.accessToken);
-                setExpire(decoded.exp);
-            }
-            return config;
-        },
-        (error) => {
-            return Promise.reject(error);
-        }
-    );
-
     const getDocs = async () => {
-        const response = await axiosJWT.get(`http://localhost:5000/appointment/doctors/spec/${spec_id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
+        const response = await axios.get(`http://localhost:5000/appointment/doctors/spec/${spec_id}`)
         setdocs(response.data);
     }
 

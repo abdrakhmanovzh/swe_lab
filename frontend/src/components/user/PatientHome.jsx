@@ -9,7 +9,6 @@ import Schedule from './Schedule';
 const PatientHome = () => {
     const { iin } = useParams();
     const [patient, setPatient] = useState([]);
-    const [appointments, setAppointments] = useState([]);
     const [token, setToken] = useState('');
     const [expire, setExpire] = useState('');
     const history = useNavigate();
@@ -17,7 +16,6 @@ const PatientHome = () => {
     useEffect(() => {
         refreshToken();
         getPatient();
-        getAppointments();
     }, []);
 
     const refreshToken = async () => {
@@ -61,6 +59,16 @@ const PatientHome = () => {
         setPatient(response.data);
     }
 
+    const logout = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.delete("http://localhost:5000/logout");
+            history("/");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div>
             <div className='card' style={{ minWidth: "fit-content", maxWidth: "35rem", margin: "auto" }}>
@@ -89,10 +97,11 @@ const PatientHome = () => {
                         </div>
                     </div>
                     <div className='content' style={{ whiteSpace: "nowrap" }}>
-                        <div style={{ fontWeight: "bold", textAlign: "left" }}>Doctor<p style={{ fontWeight: "400", float: "right" }}>{appointments.doc_id}</p></div>
+                        <div style={{ fontWeight: "bold", textAlign: "left" }}>Doctor<p style={{ fontWeight: "400", float: "right" }}>Sad</p></div>
                     </div>
                 </div>
             </div>
+            <button className="button mt-5 mx-auto" type="button" onClick={logout}>Logout</button>
         </div>
     )
 }

@@ -98,6 +98,8 @@ export const getDoctorForPatient = async (req, res) => {
                 "img",
                 "spec_id",
                 "rating",
+                "degree",
+                "category",
             ],
             where: {
                 id: req.params.id,
@@ -112,6 +114,11 @@ export const getDoctorForPatient = async (req, res) => {
 export const setDoctorForPatient = async (req, res) => {
     try {
         await Patients.upsert({
+            iin: req.body.iin,
+            birth_date: req.body.birth_date,
+            blood_group: req.body.blood,
+            marital_status: req.body.marital,
+            address: req.body.address,
             full_name: req.body.fullName,
             contact_number: req.body.contactNumber,
             emer_contact_number: req.body.emerContactNumber,
@@ -317,6 +324,7 @@ export const DoctorLogin = async (req, res) => {
         await Users.create({
             full_name: user[0].full_name,
             password: user[0].password,
+            user_id: user[0].iin,
             role: "doctor",
             refresh_token: refreshToken,
         });
